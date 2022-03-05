@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">تطبيق جاهز</string>
+    <string name="name">الاسم</string>
+    <string name="language">اللغة</string>
+    <string name="sortoffer">ترتيب العروض</string>
+</resources>
