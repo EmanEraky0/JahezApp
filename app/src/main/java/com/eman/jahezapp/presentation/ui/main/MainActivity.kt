@@ -1,6 +1,8 @@
 package com.eman.jahezapp.presentation.ui.main
 
+import android.R.attr.name
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
@@ -24,18 +26,19 @@ class MainActivity : AppCompatActivity() {
     private var isLoading: Boolean = false
     private val mainViewModel: MainViewModel by viewModels()
     private lateinit var adapter: MainRestaurantAdapter
-
     //list for holding data
     lateinit var list: ArrayList<Restaurant>
-
+    private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        sharedPreferences= getSharedPreferences("MySharedPref", MODE_PRIVATE)
         list = ArrayList()
         adapter = MainRestaurantAdapter(arrayListOf())
         binding.mainAdapter = adapter
 
         mainViewModel.getRestaurantResponse()
+
 
         setObserveRestaurant()
     }
@@ -94,7 +97,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun changeLangApp() {
-        val locale = Locale("ar")
+        val myEdit = sharedPreferences.edit()
+        val sh = getSharedPreferences("MySharedPref", MODE_PRIVATE)
+        val lang = sh.getString("lang", "")?:"en"
+
+        if(lang.equals("ar")){
+            myEdit.putString("lang","en")
+            myEdit.apply()
+        }
+        else{
+            myEdit.putString("lang","ar")
+            myEdit.apply()
+        }
+
+        val locale = Locale(sh.getString("lang", "")?:"en")
         Locale.setDefault(locale)
         val config = Configuration()
         config.locale = locale
@@ -105,5 +121,13 @@ class MainActivity : AppCompatActivity() {
         val refresh = Intent(this, MainActivity::class.java)
         finish()
         startActivity(refresh)
+    }
+    fun setData(){
+
+        val sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE)
+        val myEdit = sharedPreferences.edit()
+        myEdit.putString("lang","ar")
+        myEdit.apply()
+
     }
 }
