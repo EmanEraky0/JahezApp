@@ -9,7 +9,7 @@ import jahezapp.R
 import jahezapp.databinding.ItemRestaurantBinding
 
 class MainRestaurantAdapter(
-    private var restaurant: ArrayList<Restaurant>
+    private var restaurant: List<Restaurant>
 ) :
     RecyclerView.Adapter<MainRestaurantAdapter.DataViewHolder>() {
 
@@ -31,7 +31,7 @@ class MainRestaurantAdapter(
 
     class DataViewHolder(val binding: ItemRestaurantBinding) : RecyclerView.ViewHolder(binding.root)
 
-    fun addData(list: ArrayList<Restaurant>) {
+    fun addData(list: List<Restaurant>) {
         restaurant=(list)
     }
 

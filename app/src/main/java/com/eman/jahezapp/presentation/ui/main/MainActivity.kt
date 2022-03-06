@@ -83,22 +83,17 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.action_sort -> {
-//                list.sortBy { it.distance >1 }
-//
-//                for (obj in list) {
-//                    println(obj.distance)
-//                }
-//                var sortedList = list.sortedWith(compareBy({ it.hasOffer }))
-//
-//                adapter.addData(sortedList as ArrayList<Restaurant>)
-//                adapter.notifyDataSetChanged()
+                val sortedList = list.sortedWith(compareBy { !it.hasOffer })
+
+                adapter.addData(sortedList)
+                adapter.notifyDataSetChanged()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
-    fun changeLangApp() {
+    private fun changeLangApp() {
         val locale = Locale("ar")
         Locale.setDefault(locale)
         val config = Configuration()
